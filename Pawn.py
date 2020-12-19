@@ -10,16 +10,14 @@ class Pawn:
         self.r = r
         self.c = c
         self.color = color
-        self.name = 'Pawn'
+        self.piece = 'Pawn'
 
     def get_position(self):
         return (self.r, self.c)
 
     def get_moves(self, board):
         valid_moves = []
-        r = self.r
-        c = self.c
-        my_color = self.color
+        r, c, my_color = self.r, self.c, self.color
 
         x = 0
         first_row = -1
@@ -75,9 +73,7 @@ class Pawn:
         return (module_lst[option], string_lst[option])
 
     def convert(self, module, new_type, board):
-        r = self.r
-        c = self.c
-        color = self.color
+        r, c, color = self.r, self.c, self.color
 
         #module = getattr(sys.modules[__name__], new_type)
         new_class = getattr(module, new_type)
@@ -107,7 +103,7 @@ if __name__ == '__main__':
     for row in board:
         print(row)
 
-    print()
+    print
 
     (module, name) = w_pawn.choosing(3)
     w_pawn.convert(module, name, board)
