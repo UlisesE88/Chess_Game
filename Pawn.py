@@ -1,12 +1,16 @@
 import operator
 
+import Rook
+import sys
+
+
 class Pawn:
 
     def __init__(self, r, c, color):
         self.r = r
         self.c = c
         self.color = color
-        self.piece = 'Pawn'
+        self.name = 'Pawn'
 
     def get_position(self):
         return (self.r, self.c)
@@ -58,16 +62,59 @@ class Pawn:
         self.r, self.c = new_r, new_c
         return (board, item_ate)
 
+    def choosing(self, option):
+        if self.color == 'W': last_row = 0
+        if self.color == 'B': last_row = 7
+
+        #Make sure I'm in last row to convert
+        if self.r != last_row:
+            return (None, None)
+
+        module_lst = ["Queen", "Bishop", "Knights", Rook]
+        string_lst = ["Queen", "Bishop", "Knights", "Rook"]
+        return (module_lst[option], string_lst[option])
+
+    def convert(self, module, new_type, board):
+        r = self.r
+        c = self.c
+        color = self.color
+
+        #module = getattr(sys.modules[__name__], new_type)
+        new_class = getattr(module, new_type)
+        new_piece = new_class(r, c, color)
+
+        #new_class = getattr(Rook, new_type)
+        #new_piece = new_class(r, c, color)
+
+        board[r][c] = new_piece
+        return board
+
+    #def convert(self, new_type):
+        #new_class = getattr(Rook, new_type)
+        #new_obj = new_class(5, 5, 'W')
+        #print(new_obj.name)
+
 if __name__ == '__main__':
     board = [[None for i in range(8)] for j in range(8)]
     #board[r][c]
 
-    w_pawn = Pawn(6, 1, 'W')
+    w_pawn = Pawn(0, 1, 'W')
     b_pawn = Pawn(5, 0, 'B')
     board[w_pawn.r][w_pawn.c] = w_pawn
     board[b_pawn.r][b_pawn.c] = b_pawn
 
 
+    for row in board:
+        print(row)
+
+    print()
+
+    (module, name) = w_pawn.choosing(3)
+    w_pawn.convert(module, name, board)
+
+    for row in board:
+        print(row)
+    ''' 
     for row in board:
         print(row)
 
@@ -83,3 +130,4 @@ if __name__ == '__main__':
         print(item_ate.piece + ' ' +  item_ate.color)
 
 
+'''
