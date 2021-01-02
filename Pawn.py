@@ -7,9 +7,7 @@ import sys
 class Pawn:
 
     def __init__(self, r, c, color):
-        self.r = r
-        self.c = c
-        self.color = color
+        self.r, self.c, self.color = r, c, color
         self.piece = 'Pawn'
 
     def get_position(self):
