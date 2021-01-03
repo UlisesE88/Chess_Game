@@ -26,7 +26,6 @@ def loadImages():
 '''
 The main driver for our code. This will handle user input and updating the graphics
 '''
-
 def main():
     p.init()
     screen = p.display.set_mode((WIDTH, HEIGHT))
@@ -37,27 +36,40 @@ def main():
     running = True
     sqSelected = () #no square is selected, keep track of the last click of the user (tuple: (row, col))
     playerClicks = [] #keep track of player clicks (two tuples: [(6, 4), (4, 4)]
+
     while running:
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
+            elif e.type == p.MOUSEBUTTONUP:
+                BGCOLOR = (3, 115, 46)
+
+
             elif e.type == p.MOUSEBUTTONDOWN:
                 location = p.mouse.get_pos()
                 col = location[0]//SQ_SIZE
                 row = location[1]//SQ_SIZE
+
 
                 if sqSelected == (row, col): #the user clicked the same square twice
                     sqSelected, playerClicks = (), []
                 else:
                     sqSelected = (row, col)
                     playerClicks.append(sqSelected)
+                    #Here is where list of moves need to be added
 
                 if len(playerClicks) == 2: #after 2nd click
                     move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
                     gs.makeMove(move)
                     sqSelected, playerClicks = (), []
 
+
         drawGameState(screen, gs)
+
+        if len(playerClicks) == 1:
+            (row, col) = playerClicks[0]
+            highlight(screen, col, row, gs.board)
+
         clock.tick(MAX_FPS)
         p.display.flip()
 
@@ -85,6 +97,19 @@ def drawPieces(screen, board):
             piece = board[r][c]
             if piece != "--":
                 screen.blit(IMAGES[piece], p.Rect(c*SQ_SIZE, r*SQ_SIZE, SQ_SIZE, SQ_SIZE))
+
+''' 
+Highlight the pieces after being selected
+--Need to add logic to unhighlight when user changes chooses another piece
+'''
+def highlight(screen, c, r, board):
+    color = p.Color(207, 164, 235)
+    p.draw.rect(screen, color, p.Rect(c*SQ_SIZE, r*SQ_SIZE, SQ_SIZE, SQ_SIZE))
+
+    #Draw the piece ontop of highlighted item
+    piece = board[r][c]
+    if piece != "--": screen.blit(IMAGES[piece], p.Rect(c * SQ_SIZE, r * SQ_SIZE, SQ_SIZE, SQ_SIZE))
+
 
 
 if __name__ == '__main__':
