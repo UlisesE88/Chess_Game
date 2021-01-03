@@ -1,11 +1,17 @@
 import operator
-class Rook:
+from Pieces import Pieces
+import pygame as p
+class Rook(Pieces):
     def __init__(self, r, c, color):
-        self.r, self.c, self.color = r, c, color
-        self.name = 'Rook'
+        super(Rook, self).__init__(r, c, color)
+        self.piece = 'Rook'
+
+        piece = "wR" if color == 'white' else "bR"
+        SQ_SIZE = 512 // 8
+        self.image = p.transform.scale(p.image.load("chess images/" + piece + ".png"), (SQ_SIZE, SQ_SIZE))
 
     def get_position(self):
-        return (self.r, self.c)
+        return (super(Rook, self).get_position())
 
     def get_moves(self, board):
         valid_moves = []
@@ -56,16 +62,7 @@ class Rook:
         return valid_moves
 
     def moving(self, new_r, new_c, board):
-        item_ate = None
-        old_r, old_c  = self.r, self.c
-
-        if board[new_r][new_c] is not None: item_ate = board[new_r][new_c]
-
-        board[new_r][new_c] = self
-        board[old_r][old_c] = None
-
-        self.r, self.c = new_r, new_c
-        return (board, item_ate)
+        return super(Rook, self).moving()
 
 if __name__ == '__main__':
     board = [[None for i in range(8)] for j in range(8)]

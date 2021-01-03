@@ -1,15 +1,17 @@
-#import operator
-class Queen:
-
+import operator
+from Pieces import Pieces
+import pygame as p
+class Queen(Pieces):
     def __init__(self, r, c, color):
-        self.r = r
-        self.c = c
-        self.color = color
-        self.name = 'Queen'
+        super(Queen, self).__init__(r, c, color)
+        self.piece = 'Biship'
+
+        piece = "wQ" if color == 'white' else "bQ"
+        SQ_SIZE = 512 // 8
+        self.image = p.transform.scale(p.image.load("chess images/" + piece + ".png"), (SQ_SIZE, SQ_SIZE))
 
     def get_position(self):
-        return (self.r, self.c)
+        return (super(Queen, self).get_position())
 
-    def get_moves(self, board):
-        valid_moves = []
-        r, c, my_color = self.r, self.c, self.color
+    def moving(self, new_r, new_c, board):
+        return super(Queen, self).moving()
