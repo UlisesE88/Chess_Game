@@ -1,0 +1,84 @@
+Index: Knight.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class Knight:\n\n    def __init__(self, r, c, color):\n        self.r = r\n        self.c = c\n        self.color = color\n        self.name = 'Biship'\n\n    def get_position(self):\n        return (self.r, self.c)\n\n    def get_moves(self, board):\n        valid_moves = []\n        r, c, my_color = self.r, self.c, self.color
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Knight.py	(revision 4723a37c9f9338d1e0b3bc93f64cbbba57713aa8)
++++ Knight.py	(date 1609648596898)
+@@ -1,10 +1,11 @@
++#import operator
+ class Knight:
+ 
+     def __init__(self, r, c, color):
+         self.r = r
+         self.c = c
+         self.color = color
+-        self.name = 'Biship'
++        self.name = 'Knight'
+ 
+     def get_position(self):
+         return (self.r, self.c)
+Index: Biship.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class Biship:\n    def __init__(self, r, c, color):\n        self.r = r\n        self.c = c\n        self.color = color\n        self.name = 'Biship'\n\n    def get_position(self):\n        return (self.r, self.c)\n\n    def get_moves(self, board):\n        valid_moves = []\n        r, c, my_color = self.r, self.c, self.color
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Biship.py	(revision 4723a37c9f9338d1e0b3bc93f64cbbba57713aa8)
++++ Biship.py	(date 1609557337697)
+@@ -1,3 +1,4 @@
++#import operator
+ class Biship:
+     def __init__(self, r, c, color):
+         self.r = r
+Index: King.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- King.py	(date 1609648596903)
++++ King.py	(date 1609648596903)
+@@ -0,0 +1,15 @@
++#import operator
++class King:
++
++    def __init__(self, r, c, color):
++        self.r = r
++        self.c = c
++        self.color = color
++        self.name = 'King'
++
++    def get_position(self):
++        return (self.r, self.c)
++
++    def get_moves(self, board):
++        valid_moves = []
++        r, c, my_color = self.r, self.c, self.color
+\ No newline at end of file
+Index: Queen.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Queen.py	(date 1609648596907)
++++ Queen.py	(date 1609648596907)
+@@ -0,0 +1,15 @@
++#import operator
++class Queen:
++
++    def __init__(self, r, c, color):
++        self.r = r
++        self.c = c
++        self.color = color
++        self.name = 'Queen'
++
++    def get_position(self):
++        return (self.r, self.c)
++
++    def get_moves(self, board):
++        valid_moves = []
++        r, c, my_color = self.r, self.c, self.color
+\ No newline at end of file
