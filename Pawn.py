@@ -1,17 +1,21 @@
 import operator
-
 import Rook
 import sys
+from Pieces import Pieces
+import pygame as p
 
-
-class Pawn:
+class Pawn(Pieces):
 
     def __init__(self, r, c, color):
-        self.r, self.c, self.color = r, c, color
+        super(Pawn, self).__init__(r, c, color)
         self.piece = 'Pawn'
 
+        piece = "wp" if color == 'white' else "bp"
+        SQ_SIZE = 512//8
+        self.image = p.transform.scale(p.image.load("chess images/" + piece + ".png"), (SQ_SIZE, SQ_SIZE))
+
     def get_position(self):
-        return (self.r, self.c)
+        return (super(Pawn, self).get_position())
 
     def get_moves(self, board):
         valid_moves = []
@@ -47,16 +51,7 @@ class Pawn:
         return valid_moves
 
     def moving(self, new_r, new_c, board):
-        item_ate = None
-        old_r, old_c  = self.r, self.c
-
-        if board[new_r][new_c] is not None: item_ate = board[new_r][new_c]
-
-        board[new_r][new_c] = self
-        board[old_r][old_c] = None
-
-        self.r, self.c = new_r, new_c
-        return (board, item_ate)
+        return super(Pawn, self).moving()
 
     def choosing(self, option):
         if self.color == 'W': last_row = 0
@@ -92,7 +87,12 @@ if __name__ == '__main__':
     board = [[None for i in range(8)] for j in range(8)]
     #board[r][c]
 
-    w_pawn = Pawn(0, 1, 'W')
+    w_pawn = Pawn(3, 4, "white")
+    print(w_pawn.get_position())
+
+
+    '''
+    
     b_pawn = Pawn(5, 0, 'B')
     board[w_pawn.r][w_pawn.c] = w_pawn
     board[b_pawn.r][b_pawn.c] = b_pawn
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
     for row in board:
         print(row)
-    ''' 
+    
     for row in board:
         print(row)
 
@@ -123,5 +123,4 @@ if __name__ == '__main__':
     if item_ate is not None:
         print(item_ate.piece + ' ' +  item_ate.color)
 
-
-'''
+    '''
